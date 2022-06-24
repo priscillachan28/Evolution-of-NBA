@@ -1,4 +1,4 @@
-# NBA-trends-throughout-the-years
+# Evolution of NBA and Player Positions
 By: Priscilla Chan (500503099) <br>
 Supervisor: Tamer Abdou <br>
 Link to dataset used:
