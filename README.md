@@ -9,10 +9,9 @@ In this project, we will be looking at the trends within the NBA from 1980 to 20
 •	How accurate are the player positions classified? Does the skillset of the player match up with the position that they are labelled? <br>
 •	Should the player positions remain the same or should they be revised? <br>
 
-Stages of the Project <br> 
+#### Stages of the Project <br> 
 1. Import Dataset <br>
 2. Data Preparation <br>
 3. Data Exploration <br>
-4. Feature Selection <br>
-5. Data Analysis and Modeling <br>
-6. Data Interpretation and Results <br>
+4. Data Analysis and Modeling <br>
+5. Data Interpretation and Results <br>
