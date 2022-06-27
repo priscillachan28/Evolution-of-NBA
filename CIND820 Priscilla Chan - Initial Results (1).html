@@ -1,0 +1,2548 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+    
+    
+    
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h1>CIND820 Initial Results and Code<a rel="noopener" class="anchor-link" href="#CIND820-Initial-Results-and-Code">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h4>Summary of Questions<a rel="noopener" class="anchor-link" href="#Summary-of-Questions">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>• How have NBA players been transforming the game of basketball to take advantage of the different types of scoring methods in the last 40 years? <br/>
+• How accurate are the player positions classified? Does the skillset of the player match up with the position that they are labelled? <br/>
+• Should the player positions remain the same or should they be revised?</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>GitHub Link - <a rel="noopener" href="https://github.com/priscillachan28/Evolution-of-NBA">https://github.com/priscillachan28/Evolution-of-NBA</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h4>Import Libaries<a rel="noopener" class="anchor-link" href="#Import-Libaries">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span> 
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">matthews_corrcoef</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RepeatedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">std</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h4>Data Preparation<a rel="noopener" class="anchor-link" href="#Data-Preparation">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>Dataset was taken from kaggle: <a rel="noopener" href="https://www.kaggle.com/datasets/drgilermo/nba-players-stats">https://www.kaggle.com/datasets/drgilermo/nba-players-stats</a>. This dataset shows the individual NBA player stats since 1950.</p>
+<p>Downloaded .xlsx file from Kaggle and read Excel file</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">season_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/Users/priis/Documents/CIND820/nba player stats/Seasons_Stats.csv&#39;</span><span class="p">)</span>
+<span class="n">player_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/Users/priis/Documents/CIND820/nba player stats/Players.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">season_stats</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Year</th>
+      <th>Player</th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>Tm</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>PER</th>
+      <th>...</th>
+      <th>FT%</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1950.0</td>
+      <td>Curly Armstrong</td>
+      <td>G-F</td>
+      <td>31.0</td>
+      <td>FTW</td>
+      <td>63.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.705</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>176.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>217.0</td>
+      <td>458.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1950.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>29.0</td>
+      <td>INO</td>
+      <td>49.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.708</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>109.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>279.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1950.0</td>
+      <td>Leo Barnhorst</td>
+      <td>SF</td>
+      <td>25.0</td>
+      <td>CHS</td>
+      <td>67.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.698</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>140.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>192.0</td>
+      <td>438.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1950.0</td>
+      <td>Ed Bartels</td>
+      <td>F</td>
+      <td>24.0</td>
+      <td>TOT</td>
+      <td>15.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.559</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29.0</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>1950.0</td>
+      <td>Ed Bartels</td>
+      <td>F</td>
+      <td>24.0</td>
+      <td>DNN</td>
+      <td>13.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.548</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27.0</td>
+      <td>59.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows &#215; 53 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">player_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Player</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>collage</th>
+      <th>born</th>
+      <th>birth_city</th>
+      <th>birth_state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>Curly Armstrong</td>
+      <td>180.0</td>
+      <td>77.0</td>
+      <td>Indiana University</td>
+      <td>1918.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>Cliff Barker</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Leo Barnhorst</td>
+      <td>193.0</td>
+      <td>86.0</td>
+      <td>University of Notre Dame</td>
+      <td>1924.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Ed Bartels</td>
+      <td>196.0</td>
+      <td>88.0</td>
+      <td>North Carolina State University</td>
+      <td>1925.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>Ralph Beard</td>
+      <td>178.0</td>
+      <td>79.0</td>
+      <td>University of Kentucky</td>
+      <td>1927.0</td>
+      <td>Hardinsburg</td>
+      <td>Kentucky</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>After showing the summary of the two Excel spreadsheets, we will be merging them together to create one dataset.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">season_stats</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">player_data</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Player&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Player&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0_x</th>
+      <th>Year</th>
+      <th>Player</th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>Tm</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>PER</th>
+      <th>...</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>Unnamed: 0_y</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>collage</th>
+      <th>born</th>
+      <th>birth_city</th>
+      <th>birth_state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1950.0</td>
+      <td>Curly Armstrong</td>
+      <td>G-F</td>
+      <td>31.0</td>
+      <td>FTW</td>
+      <td>63.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>217.0</td>
+      <td>458.0</td>
+      <td>0</td>
+      <td>180.0</td>
+      <td>77.0</td>
+      <td>Indiana University</td>
+      <td>1918.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>314</td>
+      <td>1951.0</td>
+      <td>Curly Armstrong</td>
+      <td>G-F</td>
+      <td>32.0</td>
+      <td>FTW</td>
+      <td>38.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>97.0</td>
+      <td>202.0</td>
+      <td>0</td>
+      <td>180.0</td>
+      <td>77.0</td>
+      <td>Indiana University</td>
+      <td>1918.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1950.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>29.0</td>
+      <td>INO</td>
+      <td>49.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>279.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>315</td>
+      <td>1951.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>30.0</td>
+      <td>INO</td>
+      <td>56.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>98.0</td>
+      <td>152.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>489</td>
+      <td>1952.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>31.0</td>
+      <td>INO</td>
+      <td>44.0</td>
+      <td>NaN</td>
+      <td>494.0</td>
+      <td>10.8</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>56.0</td>
+      <td>126.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows &#215; 60 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0_x</th>
+      <th>Year</th>
+      <th>Player</th>
+      <th>Pos</th>
+      <th>Age</th>
+      <th>Tm</th>
+      <th>G</th>
+      <th>GS</th>
+      <th>MP</th>
+      <th>PER</th>
+      <th>...</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>Unnamed: 0_y</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>collage</th>
+      <th>born</th>
+      <th>birth_city</th>
+      <th>birth_state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1950.0</td>
+      <td>Curly Armstrong</td>
+      <td>G-F</td>
+      <td>31.0</td>
+      <td>FTW</td>
+      <td>63.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>217.0</td>
+      <td>458.0</td>
+      <td>0</td>
+      <td>180.0</td>
+      <td>77.0</td>
+      <td>Indiana University</td>
+      <td>1918.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>314</td>
+      <td>1951.0</td>
+      <td>Curly Armstrong</td>
+      <td>G-F</td>
+      <td>32.0</td>
+      <td>FTW</td>
+      <td>38.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>97.0</td>
+      <td>202.0</td>
+      <td>0</td>
+      <td>180.0</td>
+      <td>77.0</td>
+      <td>Indiana University</td>
+      <td>1918.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1950.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>29.0</td>
+      <td>INO</td>
+      <td>49.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>279.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>315</td>
+      <td>1951.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>30.0</td>
+      <td>INO</td>
+      <td>56.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>98.0</td>
+      <td>152.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>489</td>
+      <td>1952.0</td>
+      <td>Cliff Barker</td>
+      <td>SG</td>
+      <td>31.0</td>
+      <td>INO</td>
+      <td>44.0</td>
+      <td>NaN</td>
+      <td>494.0</td>
+      <td>10.8</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>56.0</td>
+      <td>126.0</td>
+      <td>1</td>
+      <td>188.0</td>
+      <td>83.0</td>
+      <td>University of Kentucky</td>
+      <td>1921.0</td>
+      <td>Yorktown</td>
+      <td>Indiana</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>24685</th>
+      <td>24674</td>
+      <td>2017.0</td>
+      <td>Troy Williams</td>
+      <td>SF</td>
+      <td>22.0</td>
+      <td>HOU</td>
+      <td>6.0</td>
+      <td>3.0</td>
+      <td>139.0</td>
+      <td>12.8</td>
+      <td>...</td>
+      <td>6.0</td>
+      <td>18.0</td>
+      <td>58.0</td>
+      <td>3917</td>
+      <td>198.0</td>
+      <td>97.0</td>
+      <td>South Carolina State University</td>
+      <td>1969.0</td>
+      <td>Columbia</td>
+      <td>South Carolina</td>
+    </tr>
+    <tr>
+      <th>24686</th>
+      <td>24675</td>
+      <td>2017.0</td>
+      <td>Kyle Wiltjer</td>
+      <td>PF</td>
+      <td>24.0</td>
+      <td>HOU</td>
+      <td>14.0</td>
+      <td>0.0</td>
+      <td>44.0</td>
+      <td>6.7</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>13.0</td>
+      <td>3918</td>
+      <td>208.0</td>
+      <td>108.0</td>
+      <td>Gonzaga University</td>
+      <td>1992.0</td>
+      <td>Portland</td>
+      <td>Oregon</td>
+    </tr>
+    <tr>
+      <th>24687</th>
+      <td>24688</td>
+      <td>2017.0</td>
+      <td>Stephen Zimmerman</td>
+      <td>C</td>
+      <td>20.0</td>
+      <td>ORL</td>
+      <td>19.0</td>
+      <td>0.0</td>
+      <td>108.0</td>
+      <td>7.3</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>17.0</td>
+      <td>23.0</td>
+      <td>3919</td>
+      <td>213.0</td>
+      <td>108.0</td>
+      <td>University of Nevada, Las Vegas</td>
+      <td>1996.0</td>
+      <td>Hendersonville</td>
+      <td>Tennessee</td>
+    </tr>
+    <tr>
+      <th>24688</th>
+      <td>24689</td>
+      <td>2017.0</td>
+      <td>Paul Zipser</td>
+      <td>SF</td>
+      <td>22.0</td>
+      <td>CHI</td>
+      <td>44.0</td>
+      <td>18.0</td>
+      <td>843.0</td>
+      <td>6.9</td>
+      <td>...</td>
+      <td>40.0</td>
+      <td>78.0</td>
+      <td>240.0</td>
+      <td>3920</td>
+      <td>203.0</td>
+      <td>97.0</td>
+      <td>NaN</td>
+      <td>1994.0</td>
+      <td>Heidelberg</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <th>24689</th>
+      <td>24690</td>
+      <td>2017.0</td>
+      <td>Ivica Zubac</td>
+      <td>C</td>
+      <td>19.0</td>
+      <td>LAL</td>
+      <td>38.0</td>
+      <td>11.0</td>
+      <td>609.0</td>
+      <td>17.0</td>
+      <td>...</td>
+      <td>30.0</td>
+      <td>66.0</td>
+      <td>284.0</td>
+      <td>3921</td>
+      <td>216.0</td>
+      <td>120.0</td>
+      <td>NaN</td>
+      <td>1997.0</td>
+      <td>Mostar</td>
+      <td>Bosnia and Herzegovina</td>
+    </tr>
+  </tbody>
+</table>
+<p>24690 rows &#215; 60 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>This dataset has 24,690 entries and a total of 60 variables.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 24690 entries, 0 to 24689
+Data columns (total 60 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   Unnamed: 0_x  24690 non-null  int64  
+ 1   Year          24623 non-null  float64
+ 2   Player        24623 non-null  object 
+ 3   Pos           24623 non-null  object 
+ 4   Age           24615 non-null  float64
+ 5   Tm            24623 non-null  object 
+ 6   G             24623 non-null  float64
+ 7   GS            18232 non-null  float64
+ 8   MP            24137 non-null  float64
+ 9   PER           24100 non-null  float64
+ 10  TS%           24538 non-null  float64
+ 11  3PAr          18839 non-null  float64
+ 12  FTr           24525 non-null  float64
+ 13  ORB%          20791 non-null  float64
+ 14  DRB%          20791 non-null  float64
+ 15  TRB%          21570 non-null  float64
+ 16  AST%          22554 non-null  float64
+ 17  STL%          20791 non-null  float64
+ 18  BLK%          20791 non-null  float64
+ 19  TOV%          19582 non-null  float64
+ 20  USG%          19639 non-null  float64
+ 21  blanl         0 non-null      float64
+ 22  OWS           24584 non-null  float64
+ 23  DWS           24584 non-null  float64
+ 24  WS            24584 non-null  float64
+ 25  WS/48         24100 non-null  float64
+ 26  blank2        0 non-null      float64
+ 27  OBPM          20796 non-null  float64
+ 28  DBPM          20796 non-null  float64
+ 29  BPM           20796 non-null  float64
+ 30  VORP          20796 non-null  float64
+ 31  FG            24623 non-null  float64
+ 32  FGA           24623 non-null  float64
+ 33  FG%           24525 non-null  float64
+ 34  3P            18926 non-null  float64
+ 35  3PA           18926 non-null  float64
+ 36  3P%           15416 non-null  float64
+ 37  2P            24623 non-null  float64
+ 38  2PA           24623 non-null  float64
+ 39  2P%           24496 non-null  float64
+ 40  eFG%          24525 non-null  float64
+ 41  FT            24623 non-null  float64
+ 42  FTA           24623 non-null  float64
+ 43  FT%           23766 non-null  float64
+ 44  ORB           20796 non-null  float64
+ 45  DRB           20796 non-null  float64
+ 46  TRB           24311 non-null  float64
+ 47  AST           24623 non-null  float64
+ 48  STL           20796 non-null  float64
+ 49  BLK           20796 non-null  float64
+ 50  TOV           19644 non-null  float64
+ 51  PF            24623 non-null  float64
+ 52  PTS           24623 non-null  float64
+ 53  Unnamed: 0_y  24690 non-null  int64  
+ 54  height        24623 non-null  float64
+ 55  weight        24623 non-null  float64
+ 56  collage       22400 non-null  object 
+ 57  born          24623 non-null  float64
+ 58  birth_city    22977 non-null  object 
+ 59  birth_state   22934 non-null  object 
+dtypes: float64(52), int64(2), object(6)
+memory usage: 11.5+ MB
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>We will be selecting only the attributes that we want and are relevant to this project.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Player&quot;</span><span class="p">,</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span><span class="s2">&quot;2PA&quot;</span><span class="p">,</span> <span class="s2">&quot;2P%&quot;</span><span class="p">,</span> <span class="s2">&quot;3PA&quot;</span><span class="p">,</span> <span class="s2">&quot;3P%&quot;</span><span class="p">,</span> <span class="s2">&quot;AST%&quot;</span><span class="p">,</span> <span class="s2">&quot;BLK%&quot;</span><span class="p">,</span> <span class="s2">&quot;eFG%&quot;</span><span class="p">,</span> <span class="s2">&quot;FG%&quot;</span><span class="p">,</span> <span class="s2">&quot;FT%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;PER&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;Pos&quot;</span><span class="p">,</span> <span class="s2">&quot;STL%&quot;</span><span class="p">,</span> <span class="s2">&quot;TOV%&quot;</span><span class="p">,</span> <span class="s2">&quot;TRB%&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Player</th>
+      <th>Year</th>
+      <th>2PA</th>
+      <th>2P%</th>
+      <th>3PA</th>
+      <th>3P%</th>
+      <th>AST%</th>
+      <th>BLK%</th>
+      <th>eFG%</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>height</th>
+      <th>PER</th>
+      <th>Pos</th>
+      <th>STL%</th>
+      <th>TOV%</th>
+      <th>TRB%</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Curly Armstrong</td>
+      <td>1950.0</td>
+      <td>516.0</td>
+      <td>0.279</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.279</td>
+      <td>0.279</td>
+      <td>0.705</td>
+      <td>180.0</td>
+      <td>NaN</td>
+      <td>G-F</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Curly Armstrong</td>
+      <td>1951.0</td>
+      <td>232.0</td>
+      <td>0.310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.310</td>
+      <td>0.310</td>
+      <td>0.644</td>
+      <td>180.0</td>
+      <td>NaN</td>
+      <td>G-F</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cliff Barker</td>
+      <td>1950.0</td>
+      <td>274.0</td>
+      <td>0.372</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.372</td>
+      <td>0.372</td>
+      <td>0.708</td>
+      <td>188.0</td>
+      <td>NaN</td>
+      <td>SG</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cliff Barker</td>
+      <td>1951.0</td>
+      <td>202.0</td>
+      <td>0.252</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.252</td>
+      <td>0.252</td>
+      <td>0.649</td>
+      <td>188.0</td>
+      <td>NaN</td>
+      <td>SG</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cliff Barker</td>
+      <td>1952.0</td>
+      <td>161.0</td>
+      <td>0.298</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.298</td>
+      <td>0.298</td>
+      <td>0.588</td>
+      <td>188.0</td>
+      <td>10.8</td>
+      <td>SG</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>83.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>As mentioned in the Literature Review, we will be selecting data after 1980 due to a lot of missing values prior to 1980.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="p">[</span><span class="n">data_frame</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1980.0</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Player</th>
+      <th>Year</th>
+      <th>2PA</th>
+      <th>2P%</th>
+      <th>3PA</th>
+      <th>3P%</th>
+      <th>AST%</th>
+      <th>BLK%</th>
+      <th>eFG%</th>
+      <th>FG%</th>
+      <th>FT%</th>
+      <th>height</th>
+      <th>PER</th>
+      <th>Pos</th>
+      <th>STL%</th>
+      <th>TOV%</th>
+      <th>TRB%</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1642</th>
+      <td>Jim Paxson</td>
+      <td>1980.0</td>
+      <td>438.0</td>
+      <td>0.429</td>
+      <td>22.0</td>
+      <td>0.045</td>
+      <td>15.9</td>
+      <td>0.2</td>
+      <td>0.412</td>
+      <td>0.411</td>
+      <td>0.711</td>
+      <td>198.0</td>
+      <td>9.1</td>
+      <td>SG</td>
+      <td>1.8</td>
+      <td>15.7</td>
+      <td>4.7</td>
+      <td>90.0</td>
+    </tr>
+    <tr>
+      <th>1643</th>
+      <td>Jim Paxson</td>
+      <td>1981.0</td>
+      <td>1062.0</td>
+      <td>0.549</td>
+      <td>30.0</td>
+      <td>0.067</td>
+      <td>15.3</td>
+      <td>0.2</td>
+      <td>0.537</td>
+      <td>0.536</td>
+      <td>0.734</td>
+      <td>198.0</td>
+      <td>16.9</td>
+      <td>SG</td>
+      <td>2.4</td>
+      <td>9.8</td>
+      <td>4.3</td>
+      <td>90.0</td>
+    </tr>
+    <tr>
+      <th>1644</th>
+      <td>Jim Paxson</td>
+      <td>1982.0</td>
+      <td>1223.0</td>
+      <td>0.535</td>
+      <td>35.0</td>
+      <td>0.229</td>
+      <td>14.8</td>
+      <td>0.2</td>
+      <td>0.529</td>
+      <td>0.526</td>
+      <td>0.767</td>
+      <td>198.0</td>
+      <td>18.0</td>
+      <td>SG</td>
+      <td>2.2</td>
+      <td>9.4</td>
+      <td>4.5</td>
+      <td>90.0</td>
+    </tr>
+    <tr>
+      <th>1645</th>
+      <td>Jim Paxson</td>
+      <td>1983.0</td>
+      <td>1298.0</td>
+      <td>0.522</td>
+      <td>25.0</td>
+      <td>0.160</td>
+      <td>13.5</td>
+      <td>0.3</td>
+      <td>0.517</td>
+      <td>0.515</td>
+      <td>0.812</td>
+      <td>198.0</td>
+      <td>20.1</td>
+      <td>SG</td>
+      <td>2.4</td>
+      <td>9.2</td>
+      <td>3.6</td>
+      <td>90.0</td>
+    </tr>
+    <tr>
+      <th>1646</th>
+      <td>Jim Paxson</td>
+      <td>1984.0</td>
+      <td>1263.0</td>
+      <td>0.525</td>
+      <td>59.0</td>
+      <td>0.288</td>
+      <td>14.1</td>
+      <td>0.2</td>
+      <td>0.521</td>
+      <td>0.514</td>
+      <td>0.841</td>
+      <td>198.0</td>
+      <td>19.5</td>
+      <td>SG</td>
+      <td>2.2</td>
+      <td>8.6</td>
+      <td>3.8</td>
+      <td>90.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>In the NBA, there are 5 main positions to be played (Centre (C), Power Forward (PF), Point Guard (PG), Small Forward (SF) and Shooting Guard (SG)). This dataset contains some players who can play multiple positions but since there are not a lot of players who play multiple positions, we will be narrowing down those players to be the prominent position that they normally play. For example, for C-PF, we will be categorizing them to play the centre position instead.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;C-PF&#39;</span><span class="p">],</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;PF-SF&#39;</span><span class="p">],</span><span class="s1">&#39;PF&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;SF-SG&#39;</span><span class="p">],</span><span class="s1">&#39;SF&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;SG-PG&#39;</span><span class="p">],</span><span class="s1">&#39;SG&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;SG-PF&#39;</span><span class="p">],</span><span class="s1">&#39;SG&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;C-SF&#39;</span><span class="p">],</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;SG-SF&#39;</span><span class="p">],</span><span class="s1">&#39;SG&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;PG-SG&#39;</span><span class="p">],</span><span class="s1">&#39;PG&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;SF-PF&#39;</span><span class="p">],</span><span class="s1">&#39;SF&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;PG-SF&#39;</span><span class="p">],</span><span class="s1">&#39;PG&#39;</span><span class="p">)</span>
+<span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;PF-C&#39;</span><span class="p">],</span><span class="s1">&#39;PF&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_frame</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>(18926, 18)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">##Missing Value</span>
+<span class="n">data_frame</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>Player       0
+Year         0
+2PA          0
+2P%        116
+3PA          0
+3P%       3510
+AST%         5
+BLK%         5
+eFG%        87
+FG%         87
+FT%        744
+height       0
+PER          5
+Pos          0
+STL%         5
+TOV%        60
+TRB%         5
+weight       0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>There are several attributes that have missing values (2P%, 3P%, eFG%, FG%, FT%, PER, TOV%, TRB%). Some of these missing values are due to the fact that the player did not attempt that shot for the season making it NaN. For example - a player may not attempt a 3 point shot or free throw for the season so they do not have a 3 point percentage. Since we know the reason as to why these missing values occur, we will not be removing the entire row from the dataset but instead replacing missing values with the mean or median value of that attribute later on in the project.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h4>Initial Results for Question 1<a rel="noopener" class="anchor-link" href="#Initial-Results-for-Question-1">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>Below is a scatter plot of the amount of 3 point attempts from 1980 to 2017. 1980 was when the three point shot was first introduced and we can see by looking at the scatterplot and the regression line? that the 3 point attempt has increased over the 35 years. This means that more players are utilizing the 3 point shot as a way to score in the game.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;3PA&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span>
+           <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;NBA 3 Point Attempts&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>[Text(0.5, 1.0, &#39;NBA 3 Point Attempts&#39;)]</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output">
+<img src="javascript://" class="jp-needs-light-background"/>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>We can see that with a rise of 3 point attempts over the years, this caused a decrease in the amount of 2 point attempts as well. From our literature review, a study noticed that there has been a decrease in 2 point attempts due to the fact that many teams are looking for players who have an empty shot at shooting a 3 point ball. The below scatter plot proves that theory.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;2PA&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span>
+           <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;NBA 2 Point Attempts&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>[Text(0.5, 1.0, &#39;NBA 2 Point Attempts&#39;)]</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output">
+<img src="javascript://" class="jp-needs-light-background"/>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>Free throw percentages have been pretty stagnant over the 35 years. This shows that players have been making sure that their free throw attempts are at a good level as it is a quick and easy way to help the team score additional points.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;FT%&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span>
+           <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;NBA Free Throw Percentage&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>[Text(0.5, 1.0, &#39;NBA Free Throw Percentage&#39;)]</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output">
+<img src="javascript://" class="jp-needs-light-background"/>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;FG%&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span>
+           <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;NBA Field Goal Percentage&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>[Text(0.5, 1.0, &#39;NBA Field Goal Percentage&#39;)]</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output">
+<img src="javascript://" class="jp-needs-light-background"/>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>To see how basketball techniques have evolved throughout the years, we will be comparing two of the most popular players over the decades. We will be comparing Michael Jordan and Stephen Curry. Both of these players have been known as being the best players in the NBA to date.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">michael</span> <span class="o">=</span> <span class="n">data_frame</span><span class="p">[</span><span class="n">data_frame</span><span class="p">[</span><span class="s2">&quot;Player&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Michael Jordan*&#39;</span><span class="p">]</span>
+<span class="n">steph</span> <span class="o">=</span> <span class="n">data_frame</span><span class="p">[</span><span class="n">data_frame</span><span class="p">[</span><span class="s2">&quot;Player&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Stephen Curry&#39;</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">michael</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">michael</span><span class="p">[</span><span class="s1">&#39;3P%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">michael</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">michael</span><span class="p">[</span><span class="s1">&#39;2P%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">michael</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">michael</span><span class="p">[</span><span class="s1">&#39;FT%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;3P%&quot;</span><span class="p">,</span> <span class="s2">&quot;2P%&quot;</span><span class="p">,</span> <span class="s2">&quot;FT%&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Michael Jordan over the Years&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">steph</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">steph</span><span class="p">[</span><span class="s1">&#39;3P%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">steph</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">steph</span><span class="p">[</span><span class="s1">&#39;2P%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">steph</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">steph</span><span class="p">[</span><span class="s1">&#39;FT%&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;3P%&quot;</span><span class="p">,</span> <span class="s2">&quot;2P%&quot;</span><span class="p">,</span> <span class="s2">&quot;FT%&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Stephen Curry over the Years&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>Text(0.5, 1.0, &#39;Stephen Curry over the Years&#39;)</pre>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output">
+<img src="javascript://" class="jp-needs-light-background"/>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<p>From looking at the graph above, it&#39;s clear that Stephen Curry has put a lot more focus and attention on 3 Point throws. There is the spike in 1995 where Michael Jordan&#39;s three point percentaged increased but caused a drop in his two point percentage. A reason for this increase in 3P% may be due to the fact that the NBA changed the three point line to be closer for a few years before ultimately moving the three point line back. Stephen Curry has been consistent in all types of shots. Over the years, players have realized that it is important to be consistent in all types of shooting instead of focusing to excel on a certain type.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h4>Initial Results for Question 2<a rel="noopener" class="anchor-link" href="#Initial-Results-for-Question-2">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">## Replace NaN Values</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;2P%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;2P%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;3P%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;3P%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;AST%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;AST%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;BLK%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;BLK%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;eFG%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;eFG%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;FG%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;FG%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;FT%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;FT%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;PER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;PER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;STL%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;STL%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;TOV%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;TOV%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;TRB%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;TRB%&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput">
+<h2>Multinomial Logistic Regression<a rel="noopener" class="anchor-link" href="#Multinomial-Logistic-Regression">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data_frame</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data_frame</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;Pos&#39;</span><span class="p">,</span><span class="s1">&#39;Player&#39;</span><span class="p">]))]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_frame</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[23]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model1</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;saga&#39;</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">model1</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>LogisticRegression(max_iter=10000, multi_class=&#39;multinomial&#39;, penalty=&#39;none&#39;,
+                   random_state=0, solver=&#39;saga&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[24]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="n">y_pred</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>array([&#39;PG&#39;, &#39;SG&#39;, &#39;SF&#39;, ..., &#39;PG&#39;, &#39;PF&#39;, &#39;SG&#39;], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[25]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">rownames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Actual&#39;</span><span class="p">],</span> <span class="n">colnames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicted&#39;</span><span class="p">])</span>
+<span class="n">confusion_matrix</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult">
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>C</th>
+      <th>PF</th>
+      <th>PG</th>
+      <th>SF</th>
+      <th>SG</th>
+    </tr>
+    <tr>
+      <th>Actual</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C</th>
+      <td>882</td>
+      <td>197</td>
+      <td>3</td>
+      <td>50</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>PF</th>
+      <td>254</td>
+      <td>789</td>
+      <td>1</td>
+      <td>155</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>PG</th>
+      <td>1</td>
+      <td>0</td>
+      <td>979</td>
+      <td>9</td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <th>SF</th>
+      <td>16</td>
+      <td>187</td>
+      <td>10</td>
+      <td>637</td>
+      <td>207</td>
+    </tr>
+    <tr>
+      <th>SG</th>
+      <td>3</td>
+      <td>18</td>
+      <td>154</td>
+      <td>199</td>
+      <td>726</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output">
+<pre>              precision    recall  f1-score   support
+
+           C       0.76      0.78      0.77      1135
+          PF       0.66      0.65      0.65      1223
+          PG       0.85      0.84      0.85      1163
+          SF       0.61      0.60      0.60      1057
+          SG       0.64      0.66      0.65      1100
+
+    accuracy                           0.71      5678
+   macro avg       0.71      0.71      0.71      5678
+weighted avg       0.71      0.71      0.71      5678
+
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[27]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Matthews Correlation Score</span>
+<span class="n">matthews_corrcoef</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult">
+<pre>0.6333200394980081</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[28]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Repeated K Fold Cross Validation with a 10 split</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">RepeatedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model1</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[29]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: </span><span class="si">%.3f</span><span class="s1"> (</span><span class="si">%.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output">
+<pre>Accuracy: 0.704 (0.006)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[30]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Repeated K Fold Cross Validation with a 15 split</span>
+<span class="n">cv_15</span> <span class="o">=</span> <span class="n">RepeatedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scores_15</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model1</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv_15</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&#160;[31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor">
+     <div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: </span><span class="si">%.3f</span><span class="s1"> (</span><span class="si">%.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">scores_15</span><span class="p">),</span> <span class="n">std</span><span class="p">(</span><span class="n">scores_15</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output">
+<pre>Accuracy: 0.704 (0.011)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script type="module" src="https://s.brightspace.com/lib/bsi/20.22.6-230/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							'outputScale': 1.3,
+							'renderLatex': true
+						});
+					}
+				});</script></body></html>
